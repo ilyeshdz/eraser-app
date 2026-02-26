@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eraser - Background Remover</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="app-shell" id="appShell">
+        <header class="topbar">
+          <button class="theme-toggle" id="themeToggleBtn" type="button" aria-label="Toggle color theme">
+            <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
+            <span id="themeToggleText">Dark mode</span>
+          </button>
+        </header>
+
+        <main class="main">
+          <aside class="sidebar">
+            <input type="file" id="fileInput" accept="image/*" hidden />
+
+            <section class="sidebar-section" id="hintSection">
+              <div class="sidebar-label">Start</div>
+              <p class="hint-text">Drag and drop an image to begin. You can tune background and output styling after upload.</p>
+              <model-selector id="modelSelector"></model-selector>
+            </section>
+
+            <section class="sidebar-section" id="backgroundSection" hidden>
+              <div class="sidebar-label">Background</div>
+
+              <div class="swatch-row">
+                <span class="swatch-row-label">Base</span>
+                <div class="swatch-row-swatches" id="baseSwatches" role="group" aria-label="Base colors"></div>
+              </div>
+
+              <div class="swatch-row">
+                <span class="swatch-row-label">Pastel</span>
+                <div class="swatch-row-swatches" id="pastelSwatches" role="group" aria-label="Pastel colors"></div>
+              </div>
+
+              <div class="custom-color-wrapper">
+                <label class="custom-color-label" for="customColorInput">Custom color</label>
+                <input
+                  id="customColorInput"
+                  class="custom-color-input"
+                  type="text"
+                  placeholder="#FAD2E1 or lightblue"
+                  autocomplete="off"
+                />
+                <p class="custom-color-help">Tip: use any CSS color value, like <code>#FAD2E1</code>, <code>rgb(252 223 235)</code>, or <code>lavender</code>.</p>
+              </div>
+            </section>
+          </aside>
+
+          <section class="canvas" id="canvas">
+            <div class="canvas-content">
+              <ui-banner id="errorBanner" variant="error" dismissible hidden></ui-banner>
+
+              <div class="empty-state" id="emptyState" role="button" tabindex="0" aria-label="Drop image here or browse files">
+                <div class="empty-icon"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i></div>
+                <p class="empty-label">Drop your image here</p>
+                <p class="empty-hint">or click to browse files</p>
+                <ui-button id="browseBtn" variant="secondary">
+                  <i class="bi bi-folder2-open" aria-hidden="true"></i>
+                  Browse files
+                </ui-button>
+              </div>
+
+              <div class="processing-state" id="processingState" aria-live="polite" aria-busy="true" hidden>
+                <div class="spinner" aria-hidden="true"></div>
+                <p class="processing-label" id="processingLabel">Preparing image...</p>
+                <div class="processing-progress" id="processingProgressBar">
+                  <div class="progress-fill"></div>
+                </div>
+                <p class="processing-hint">This may take a few seconds depending on image size.</p>
+              </div>
+
+              <div class="result-shell" id="resultState" hidden>
+                <div class="result-state">
+                  <div class="result-panel">
+                    <div class="result-panel-label">Original</div>
+                    <img class="result-panel-image transparent" id="originalImagePreview" alt="Original image" />
+                  </div>
+                  <div class="result-panel">
+                    <div class="result-panel-label">Result</div>
+                    <img class="result-panel-image transparent" id="resultImagePreview" alt="Processed image preview" />
+                  </div>
+                </div>
+
+                <div class="actionbar">
+                  <ui-split-button id="downloadSplit" label="Download PNG" value="png" options="png,jpg,webp"></ui-split-button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+
+      <div class="drop-overlay" id="dropOverlay" aria-hidden="true" hidden>
+        <div class="drop-popup">
+          <p class="drop-popup-title" id="dropOverlayTitle">Drop to process this image</p>
+          <p class="drop-popup-hint" id="dropOverlayHint">Processing starts immediately.</p>
+        </div>
+      </div>
+
+      <ui-modal
+        id="replaceDialog"
+        heading="Replace current image?"
+        description="Loading a new image will stop the current edit and replace the preview."
+        confirm-label="Replace image"
+        cancel-label="Cancel"
+      ></ui-modal>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
