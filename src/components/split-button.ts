@@ -1,13 +1,14 @@
 import { LitElement, css, html } from 'lit'
-import { defineComponent, designTokens } from './base'
+import { customElement, eventOptions, property } from 'lit/decorators.js'
+import { designTokens } from './base'
 
-class UISplitButton extends LitElement {
-  static override properties = {
-    label: { type: String },
-    value: { type: String },
-    options: { type: String },
-    open: { type: Boolean, state: true }
-  }
+@customElement('ui-split-button')
+export class UISplitButton extends LitElement {
+  @property({ type: String }) declare label: string
+  @property({ type: String }) declare value: string
+  @property({ type: String }) declare options: string
+  @property({ type: Boolean, reflect: true }) declare open: boolean
+  @property({ type: Boolean, attribute: false }) declare openUpward: boolean
 
   static override styles = [
     designTokens,
@@ -95,6 +96,16 @@ class UISplitButton extends LitElement {
         pointer-events: auto;
       }
 
+      .menu.upward {
+        top: auto;
+        bottom: calc(100% + 8px);
+        transform: translateY(-8px) scale(0.98);
+      }
+
+      .menu.upward.open {
+        transform: translateY(0) scale(1);
+      }
+
       .menu button {
         width: 100%;
         min-height: 36px;
@@ -118,11 +129,6 @@ class UISplitButton extends LitElement {
     `
   ]
 
-  declare label: string
-  declare value: string
-  declare options: string
-  declare open: boolean
-
   private readonly onDocumentPointerDown: (event: PointerEvent) => void
 
   constructor() {
@@ -131,6 +137,7 @@ class UISplitButton extends LitElement {
     this.value = ''
     this.options = ''
     this.open = false
+    this.openUpward = false
 
     this.onDocumentPointerDown = (event: PointerEvent) => {
       if (!this.open) return
@@ -156,6 +163,9 @@ class UISplitButton extends LitElement {
       const firstOption = this.optionList[0]
       this.value = firstOption ?? ''
     }
+    if (changedProperties.has('open') && this.open) {
+      this.updateMenuPlacement()
+    }
   }
 
   override render() {
@@ -175,7 +185,11 @@ class UISplitButton extends LitElement {
           </svg>
         </button>
 
-        <div class="menu ${this.open ? 'open' : ''}" role="menu" @keydown=${this.handleMenuKeydown}>
+        <div
+          class="menu ${this.open ? 'open' : ''} ${this.openUpward ? 'upward' : ''}"
+          role="menu"
+          @keydown=${this.handleMenuKeydown}
+        >
           ${this.optionList.map((option) => {
             const selected = option === this.value
             return html`
@@ -210,6 +224,7 @@ class UISplitButton extends LitElement {
     )
   }
 
+  @eventOptions({ capture: true })
   private handleArrowClick(event: MouseEvent): void {
     event.stopPropagation()
     this.open = !this.open
@@ -233,8 +248,19 @@ class UISplitButton extends LitElement {
       this.open = false
     }
   }
-}
 
-defineComponent('ui-split-button', UISplitButton)
+  private updateMenuPlacement(): void {
+    const group = this.renderRoot.querySelector<HTMLElement>('.group')
+    const menu = this.renderRoot.querySelector<HTMLElement>('.menu')
+    if (!group || !menu) return
+
+    // Measure projected menu height and available viewport space.
+    const groupRect = group.getBoundingClientRect()
+    const estimatedMenuHeight = Math.max(menu.scrollHeight, 120)
+    const spaceBelow = window.innerHeight - groupRect.bottom
+    const spaceAbove = groupRect.top
+    this.openUpward = spaceBelow < estimatedMenuHeight + 16 && spaceAbove > spaceBelow
+  }
+}
 
 export {}

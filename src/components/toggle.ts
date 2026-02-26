@@ -1,9 +1,13 @@
 import { LitElement, css, html } from 'lit'
+import { property } from 'lit/decorators.js'
 import { defineComponent, designTokens } from './base'
 
 class UIToggle extends LitElement {
-  static override properties = {
-    checked: { type: Boolean, reflect: true }
+  @property({ type: Boolean, reflect: true }) declare checked: boolean
+
+  constructor() {
+    super()
+    this.checked = false
   }
 
   static override styles = [
@@ -52,13 +56,6 @@ class UIToggle extends LitElement {
       }
     `
   ]
-
-  declare checked: boolean
-
-  constructor() {
-    super()
-    this.checked = false
-  }
 
   override render() {
     return html`

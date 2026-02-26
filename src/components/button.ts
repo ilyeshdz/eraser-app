@@ -1,14 +1,20 @@
 import { LitElement, css, html } from 'lit'
+import { property } from 'lit/decorators.js'
 import { defineComponent, designTokens } from './base'
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost'
 type ButtonSize = 'md' | 'sm'
 
 class UIButton extends LitElement {
-  static override properties = {
-    variant: { type: String, reflect: true },
-    size: { type: String, reflect: true },
-    disabled: { type: Boolean, reflect: true }
+  @property({ reflect: true }) declare variant: ButtonVariant
+  @property({ reflect: true }) declare size: ButtonSize
+  @property({ type: Boolean, reflect: true }) declare disabled: boolean
+
+  constructor() {
+    super()
+    this.variant = 'primary'
+    this.size = 'md'
+    this.disabled = false
   }
 
   static override styles = [
@@ -94,17 +100,6 @@ class UIButton extends LitElement {
       }
     `
   ]
-
-  declare variant: ButtonVariant
-  declare size: ButtonSize
-  declare disabled: boolean
-
-  constructor() {
-    super()
-    this.variant = 'primary'
-    this.size = 'md'
-    this.disabled = false
-  }
 
   override render() {
     const variant = this.variant || 'primary'

@@ -18,6 +18,9 @@ export const designTokens = css`
     --ds-info-bg: var(--info-bg, #eff6ff);
     --ds-info-border: var(--info-border, #bfdbfe);
     --ds-info-text: var(--info-text, #2563eb);
+    --ds-warning-bg: var(--warning-bg, #e8ba2f);
+    --ds-warning-border: var(--warning-border, #e8ba2f);
+    --ds-warning-text: var(--warning-text, #4c4c4c);
     --ds-checker-a: var(--checker-a, #eef1f6);
     --ds-checker-b: var(--checker-b, #dde3ed);
     --ds-radius-sm: var(--radius-sm, 8px);

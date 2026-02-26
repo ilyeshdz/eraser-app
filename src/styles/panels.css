@@ -1,0 +1,35 @@
+.drop-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+:root[data-theme='dark'] .drop-overlay {
+  background: rgba(6, 10, 20, 0.5);
+}
+
+.drop-popup {
+  min-width: 310px;
+  max-width: 92vw;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.drop-popup-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.drop-popup-hint {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}

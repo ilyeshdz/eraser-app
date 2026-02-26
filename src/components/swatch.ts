@@ -1,11 +1,17 @@
 import { LitElement, css, html } from 'lit'
+import { property } from 'lit/decorators.js'
 import { defineComponent, designTokens } from './base'
 
 class UISwatch extends LitElement {
-  static override properties = {
-    color: { type: String, reflect: true },
-    selected: { type: Boolean, reflect: true },
-    label: { type: String }
+  @property({ type: String, reflect: true }) declare color: string
+  @property({ type: Boolean, reflect: true }) declare selected: boolean
+  @property({ type: String }) declare label: string
+
+  constructor() {
+    super()
+    this.color = '#ffffff'
+    this.selected = false
+    this.label = ''
   }
 
   static override styles = [
@@ -52,17 +58,6 @@ class UISwatch extends LitElement {
       }
     `
   ]
-
-  declare color: string
-  declare selected: boolean
-  declare label: string
-
-  constructor() {
-    super()
-    this.color = '#ffffff'
-    this.selected = false
-    this.label = ''
-  }
 
   override render() {
     const isTransparent = this.color === 'transparent'

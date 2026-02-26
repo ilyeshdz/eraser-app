@@ -1,10 +1,15 @@
 import { LitElement, css, html } from 'lit'
+import { property } from 'lit/decorators.js'
 import { defineComponent, designTokens } from './base'
 
 class UICheckbox extends LitElement {
-  static override properties = {
-    checked: { type: Boolean, reflect: true },
-    disabled: { type: Boolean, reflect: true }
+  @property({ type: Boolean, reflect: true }) declare checked: boolean
+  @property({ type: Boolean, reflect: true }) declare disabled: boolean
+
+  constructor() {
+    super()
+    this.checked = false
+    this.disabled = false
   }
 
   static override styles = [
@@ -86,15 +91,6 @@ class UICheckbox extends LitElement {
       }
     `
   ]
-
-  declare checked: boolean
-  declare disabled: boolean
-
-  constructor() {
-    super()
-    this.checked = false
-    this.disabled = false
-  }
 
   override render() {
     return html`

@@ -1,13 +1,19 @@
-import { LitElement, css, html } from 'lit'
+import { css, html, LitElement } from 'lit'
+import { property } from 'lit/decorators.js'
 import { defineComponent, designTokens } from './base'
 
-type BannerVariant = 'info' | 'error'
+type BannerVariant = 'info' | 'error' | 'warning'
 
 class UIBanner extends LitElement {
-  static override properties = {
-    variant: { type: String },
-    message: { type: String },
-    dismissible: { type: Boolean, reflect: true }
+  @property({ type: String }) declare variant: BannerVariant
+  @property({ type: String }) declare message: string
+  @property({ type: Boolean, reflect: true }) declare dismissible: boolean
+
+  constructor() {
+    super()
+    this.variant = 'info'
+    this.message = ''
+    this.dismissible = false
   }
 
   static override styles = [
@@ -18,14 +24,13 @@ class UIBanner extends LitElement {
       }
 
       .banner {
-        min-height: 44px;
+        min-height: 10px;
         border: 1px solid transparent;
-        border-radius: var(--ds-radius-sm);
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        padding: 8px 12px;
+        padding: 0 10px;
         font-size: 0.88rem;
       }
 
@@ -39,6 +44,12 @@ class UIBanner extends LitElement {
         background: var(--ds-info-bg);
         border-color: var(--ds-info-border);
         color: var(--ds-info-text);
+      }
+
+      .banner.warning {
+        background: var(--ds-warning-bg);
+        border-color: var(--ds-warning-border);
+        color: var(--ds-warning-text);
       }
 
       button {
@@ -64,25 +75,15 @@ class UIBanner extends LitElement {
     `
   ]
 
-  declare variant: BannerVariant
-  declare message: string
-  declare dismissible: boolean
-
-  constructor() {
-    super()
-    this.variant = 'info'
-    this.message = ''
-    this.dismissible = false
-  }
-
   override render() {
-    const variantClass = this.variant === 'error' ? 'error' : 'info'
+    const variantClass =
+      this.variant === 'error' ? 'error' : this.variant === 'warning' ? 'warning' : 'info'
 
     return html`
       <div class="banner ${variantClass}" role="alert">
         <span>${this.message}</span>
         ${this.dismissible
-          ? html`<button type="button" aria-label="Dismiss" @click=${this.handleDismiss}>×</button>`
+          ? html` <button type="button" aria-label="Dismiss" @click=${this.handleDismiss}>×</button> `
           : html``}
       </div>
     `
@@ -92,7 +93,7 @@ class UIBanner extends LitElement {
     this.dispatchEvent(
       new CustomEvent('banner-dismiss', {
         bubbles: true,
-        composed: true
+        composed: true,
       })
     )
   }
