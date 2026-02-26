@@ -35,7 +35,6 @@ interface AppRefs {
   fileInput: HTMLInputElement
   hintSection: HTMLElement
   backgroundSection: HTMLElement
-  settingsSection: HTMLElement
   baseSwatches: HTMLElement
   pastelSwatches: HTMLElement
   customColorInput: HTMLInputElement
@@ -109,7 +108,6 @@ const refs: AppRefs = {
   fileInput: mustQuery<HTMLInputElement>('#fileInput'),
   hintSection: mustQuery<HTMLElement>('#hintSection'),
   backgroundSection: mustQuery<HTMLElement>('#backgroundSection'),
-  settingsSection: mustQuery<HTMLElement>('#settingsSection'),
   baseSwatches: mustQuery<HTMLElement>('#baseSwatches'),
   pastelSwatches: mustQuery<HTMLElement>('#pastelSwatches'),
   customColorInput: mustQuery<HTMLInputElement>('#customColorInput'),
@@ -298,7 +296,6 @@ function updateSidebarVisibility(): void {
   const hasImage = Boolean(state.originalImage)
   refs.hintSection.hidden = hasImage
   refs.backgroundSection.hidden = !hasImage
-  refs.settingsSection.hidden = !hasImage
 }
 
 function updatePanels(): void {
