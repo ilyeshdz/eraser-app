@@ -1,7 +1,8 @@
-# Eraser
+
 
 <div align="center">
-
+<h1>Eraser</h1>
+  
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![GitHub Stars](https://img.shields.io/github/stars/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/stargazers)
 [![GitHub Issues](https://img.shields.io/github/issues/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/issues)
