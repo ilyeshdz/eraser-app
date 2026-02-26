@@ -3,8 +3,8 @@
 <div align="center">
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![GitHub Stars](https://img.shields.io/github/stars/eraser/eraser?style=flat&color=3b6af5)](https://github.com/eraser/eraser/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/eraser/eraser?style=flat&color=3b6af5)](https://github.com/eraser/eraser/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/issues)
 [![npm version](https://img.shields.io/npm/v/eraser-ai?style=flat&color=3b6af5)](https://www.npmjs.com/package/eraser-ai)
 
 > A browser-based AI background remover that runs entirely locally. No server, no uploads - your images never leave your device.
