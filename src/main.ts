@@ -409,7 +409,6 @@ function bindGlobalDnDListeners(): void {
   })
 
   window.addEventListener('dragover', (event) => {
-    if (!hasFiles(event)) return
     event.preventDefault()
   })
 
@@ -438,13 +437,10 @@ function bindGlobalDnDListeners(): void {
   })
 
   window.addEventListener('drop', (event) => {
-    const hasFilePayload = hasFiles(event)
-    if (hasFilePayload || state.isDraggingFile) {
-      event.preventDefault()
-    }
+    event.preventDefault()
     clearDraggingState()
 
-    if (!hasFilePayload) return
+    if (!hasFiles(event)) return
     const file = event.dataTransfer?.files[0]
     if (!file) return
     maybeHandleIncomingFile(file)
