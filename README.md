@@ -1,81 +1,54 @@
-
-
 <div align="center">
 <h1>Eraser</h1>
+<i>Background removal that runs entirely in your browser : no uploads, no servers, no nonsense.</i>
+  
+<br />
   
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![GitHub Stars](https://img.shields.io/github/stars/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/ilyeshdz/eraser-app?style=flat&color=3b6af5)](https://github.com/ilyeshdz/eraser-app/issues)
-[![npm version](https://img.shields.io/npm/v/eraser-ai?style=flat&color=3b6af5)](https://www.npmjs.com/package/eraser-ai)
-
-> A browser-based AI background remover that runs entirely locally. No server, no uploads - your images never leave your device.
-
 </div>
 
-## What is this?
+---
 
-Eraser is a privacy-focused background removal tool that runs entirely in your browser. No data ever gets sent to a server - everything happens on your device using WebGPU or WebAssembly.
+Eraser removes image backgrounds using AI models that run directly in your browser via WebGPU or WebAssembly. Your images never leave your device : there's no backend, no account, no tracking.
 
 ## Features
 
-- **Privacy-first** - All processing happens in your browser. Your images never leave your device.
-- **Multiple AI models** - Choose between RMBG-1.4 (works everywhere) and MODNet (faster with WebGPU).
-- **Custom backgrounds** - Pick solid colors, pastels, or enter any hex color you want.
-- **Export formats** - Download your result as PNG, JPG, or WebP.
-- **Dark mode** - Toggle between light and dark themes.
+- **Fully local** — processing happens on your machine, nothing is ever uploaded
+- **Two AI models** — RMBG-1.4 for broad compatibility, MODNet for faster results with WebGPU
+- **Custom backgrounds** — solid colors, pastels, or any hex value you want
+- **Export as PNG, JPG, or WebP**
+- **Light/dark mode**
 
 ## How it works
 
-The app uses Transformers.js to run image segmentation models directly in the browser. Two models are available:
+The app uses [Transformers.js](https://huggingface.co/docs/transformers.js) to run ONNX image segmentation models in-browser. No server required — just WebAssembly (and WebGPU when available).
 
-1. **RMBG-1.4** - BRIA's professional background removal model, great for most use cases.
-2. **MODNet** - A lighter model that needs WebGPU to run fast.
+RMBG-1.4 is the safe default and works everywhere. MODNet is a lighter model that really benefits from WebGPU acceleration to feel snappy.
 
-Both models run in ONNX format via WebAssembly, so they work in any modern browser without a backend.
+## Stack
 
-## Tech Stack
+TypeScript · Lit · Transformers.js · Vite · ONNX Runtime Web
 
-- TypeScript
-- Lit (web components)
-- Transformers.js
-- Vite
-- ONNX Runtime Web
+## Getting started
 
-## Getting Started
-
-Install dependencies:
 ```bash
 pnpm install
-```
-
-Run in development:
-```bash
 pnpm dev
 ```
 
-Build for production:
 ```bash
-pnpm build
+pnpm build    # production build
+pnpm preview  # preview the build locally
 ```
 
-Preview the production build:
-```bash
-pnpm preview
-```
+## Browser support
 
-## Browser Compatibility
-
-| Browser | Support |
-|---------|---------|
-| Chrome  | Full support (WebGPU + WASM) |
-| Edge    | Full support (WebGPU + WASM) |
-| Firefox | WASM only |
-| Safari  | WASM only |
-
-## License
-
-This project is licensed under GPL v3. See the LICENSE file for details.
+Chrome and Edge have full support (WebGPU + WASM). Firefox and Safari fall back to WASM only, which still works fine but is a bit slower.
 
 ## Contributing
 
-Got ideas or found a bug? Open an issue or submit a pull request on GitHub.
+Issues and PRs are welcome. If you found a bug or have an idea, just open an issue and we'll go from there.
+
+## License
+
+GPL v3 — see [LICENSE](./LICENSE).
