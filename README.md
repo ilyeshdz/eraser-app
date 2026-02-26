@@ -1,13 +1,6 @@
-<div align="center">
-<h1>Eraser</h1>
-<i>Background removal that runs entirely in your browser : no uploads, no servers, no nonsense.</i>
-  
-<br />
-  
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-</div>
 
----
+# Eraser
+> Background removal that runs entirely in your browser : no uploads, no servers, no nonsense.
 
 Eraser removes image backgrounds using AI models that run directly in your browser via WebGPU or WebAssembly. Your images never leave your device : there's no backend, no account, no tracking.
 
